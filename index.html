@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Cartas D&D</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>🎴 Generador de Cartas D&D</h1>
+    <select id="modo">
+      <option value="hechizos" selected>Hechizos</option>
+      <option value="npc">Criaturas / NPCs</option>
+      <option value="items">Ítems</option>
+      <option value="acciones">Acciones Legendarias</option>
+    </select>
+  </header>
+
+  <main>
+    <section id="formulario"></section>
+    <section id="preview"></section>
+  </main>
+
+  <footer>
+    <button id="btnDescargar">📜 Descargar PDF A4</button>
+  </footer>
+
+  <!-- Librerías necesarias para PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+  <!-- Scripts principales -->
+  <script src="js/cartas_hechizos.js"></script>
+  <script src="js/cartas_npc.js"></script>
+  <script src="js/cartas_items.js"></script>
+  <script src="js/cartas_acciones.js"></script>
+  <script src="js/descargar.js"></script>
+  <script src="js/main.js"></script> 
+</body>
+</html>
