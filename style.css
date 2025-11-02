@@ -263,3 +263,9 @@ button:hover,
   justify-content: center;
   gap: 0.5cm;
 }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.carta-top-row { font-size: 0.8em; margin: 2px 0; }
+.carta-body-scroll { font-size: 0.78em; overflow-y: auto; height: 3.5cm; text-align: left; }

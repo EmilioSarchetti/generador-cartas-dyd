@@ -23,7 +23,7 @@ function renderFormularioNPC() {
 
     <div class="campo">
       <label for="movNPC">Movimiento</label>
-      <input id="movNPC" type="text" placeholder="20 pies, 40 volando" />
+      <input id="movNPC" type="text" placeholder="30 pies, 40 volando" />
     </div>
 
     <div class="campo">
@@ -79,7 +79,7 @@ function renderFormularioNPC() {
 }
 
 // =============================
-// 🧩 Generar carta NPC
+// 🧩 Generar carta NPC (nuevo formato con filas fijas)
 // =============================
 function generarCartaNPC() {
   const nombre = document.getElementById("nombreNPC").value.trim();
@@ -109,67 +109,58 @@ function generarCartaNPC() {
 
   const carta = document.createElement("div");
   carta.className = "carta";
-
-  // 📏 Fuerza tamaño fijo físico, igual a las demás cartas
   carta.style.width = "6.5cm";
   carta.style.height = "9cm";
 
   carta.innerHTML = `
-    <div class="carta-header">
-      <h2>${nombre}</h2>
+    <div class="carta-header"><h2>${nombre}</h2></div>
+
+    <!-- 🧾 Fila 1: HP / CA / Movimiento / Visión -->
+    <div class="carta-top-row grid-4">
+      <div><strong>HP:</strong> ${hp || "—"}</div>
+      <div><strong>CA:</strong> ${ca || "—"}</div>
+      <div><strong>Mov:</strong> ${movimiento || "—"}</div>
+      <div><strong>Visión:</strong> ${vision || "—"}</div>
     </div>
 
-    <!-- TOP STATS (2cm) -->
-    <div class="carta-top-stats">
-      <!-- Fila 1: HP / CA / Mov / Visión -->
-      <div class="carta-top-row">
-        <div class="carta-top-cell"><strong>HP:</strong><span>${hp || "—"}</span></div>
-        <div class="carta-top-cell"><strong>CA:</strong><span>${ca || "—"}</span></div>
-        <div class="carta-top-cell"><strong>Mov:</strong><span>${movimiento || "—"}</span></div>
-        <div class="carta-top-cell"><strong>Visión:</strong><span>${vision || "—"}</span></div>
-      </div>
-
-      <!-- Fila 2: Atributos + TS / Pericias -->
-      <div class="carta-top-row">
-        <div class="carta-top-cell">
-          <strong>Atributos:</strong>
-          <span>
-            FUE ${fue || "—"}, DES ${des || "—"}, CON ${con || "—"}<br>
-            INT ${intVal || "—"}, SAB ${sab || "—"}, CAR ${car || "—"}
-          </span>
-        </div>
-        <div class="carta-top-cell">
-          <strong>TS / Pericias:</strong>
-          <span>
-            ${ts ? `TS: ${ts}<br>` : ""}
-            ${pericias ? `Pericias: ${pericias}` : ""}
-            ${(!ts && !pericias) ? "—" : ""}
-          </span>
-        </div>
-      </div>
+    <!-- 💪 Fila 2: Atributos (6 columnas) -->
+    <div class="carta-top-row grid-6">
+      <div><strong>FUE</strong> ${fue || "—"}</div>
+      <div><strong>DES</strong> ${des || "—"}</div>
+      <div><strong>CON</strong> ${con || "—"}</div>
+      <div><strong>INT</strong> ${intVal || "—"}</div>
+      <div><strong>SAB</strong> ${sab || "—"}</div>
+      <div><strong>CAR</strong> ${car || "—"}</div>
     </div>
 
-    <!-- CUERPO (flexible 5cm) -->
+    <!-- 🎯 Fila 3: TS y Pericias -->
+    <div class="carta-top-row grid-2">
+      <div><strong>TS:</strong> ${ts || "—"}</div>
+      <div><strong>Pericias:</strong> ${pericias || "—"}</div>
+    </div>
+
+    <!-- 🛡️ Fila 4: Resistencias / Inmunidades / Sentidos -->
+    <div class="carta-top-row grid-3">
+      <div><strong>Resistencias:</strong> ${resistencias || "—"}</div>
+      <div><strong>Inmunidades:</strong> ${inmunidades || "—"}</div>
+      <div><strong>Sentidos:</strong> ${sentidosExtra || "—"}</div>
+    </div>
+
+    <!-- ⚔️ Fila 5: Acciones y descripción -->
     <div class="carta-body-scroll">
-      ${resistencias || inmunidades || sentidosExtra ? `
-        <strong>Resistencias:</strong> ${resistencias || "—"}<br>
-        <strong>Inmunidades:</strong> ${inmunidades || "—"}<br>
-        <strong>Sentidos:</strong> ${sentidosExtra || "—"}<br><br>
-      ` : ""}
       ${acciones}
     </div>
 
-    <!-- FOOTER (1cm, reservado para uniformidad) -->
     <div class="carta-footer"></div>
   `;
 
   document.getElementById("preview").appendChild(carta);
 
+  // limpiar campos
   [
     "nombreNPC","hpNPC","caNPC","movNPC","visionNPC",
     "fueNPC","desNPC","conNPC","intNPC","sabNPC","carNPC",
-    "tsNPC","periciasNPC","resistNPC","inmunNPC","sentidosNPC",
-    "accionesNPC"
+    "tsNPC","periciasNPC","resistNPC","inmunNPC","sentidosNPC","accionesNPC"
   ].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = "";
